@@ -66,7 +66,7 @@ app.get("/gift/tt", async (req, res) => {
                 subject =
                   m.split("<hr>")[0].split("[")[0] +
                   "/" +
-                  m.split("<hr>")[1].split("[");
+                  m.split("<hr>")[1].split("[")[0];
               } else if (m.includes("color")) {
                 faculty = "";
                 subject = cheerio.load(m).text();
