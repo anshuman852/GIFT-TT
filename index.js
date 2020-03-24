@@ -14,8 +14,8 @@ app.get("/gift/tt", async (req, res) => {
     req.query.st +
     "&s=" +
     req.query.s;
-  console.log(link);
-  console.log(req.body);
+  //console.log(link);
+  //console.log(req.body);
 
   axios
     .get(link)
@@ -58,11 +58,10 @@ app.get("/gift/tt", async (req, res) => {
                   m.split("<hr>")[0].split("<br>")[1] +
                   "/" +
                   m.split("<hr>")[1].split("<br>")[1];
-                room = /(?<=\[R-)(.*)(?=])/gm.exec(m.split("<hr>")[0]) +
-                  "/" +
-                  /(?<=\[R-)(.*)(?=])/gm.exec(m.split("<hr>")[1]) || [
-                  "Not found"
-                ];
+                room =
+                  /(?<=\[R-)(.*)(?=])/gm.exec(m.split("<hr>")[0])[0] +
+                    "/" +
+                    /(?<=\[R-)(.*)(?=])/gm.exec(m.split("<hr>")[1])[1] || "";
                 subject =
                   m.split("<hr>")[0].split("[")[0] +
                   "/" +
@@ -74,13 +73,13 @@ app.get("/gift/tt", async (req, res) => {
               } else {
                 subject = m.split("<br>")[0].split("[")[0];
                 faculty = m.split("<br>")[1];
-                room = /(?<=\[R-)(.*)(?=])/gm.exec(m) || ["null"];
+                room = /(?<=\[R-)(.*)(?=])/gm.exec(m)[0] || "";
               }
               start = data[0][j].split(" - ")[0];
               finaldata.push({
                 subject: subject,
                 faculty: faculty,
-                room: room[0],
+                room: room,
                 start: start
               });
             }
@@ -96,4 +95,4 @@ app.get("/gift/tt", async (req, res) => {
       res.send("not found");
     });
 });
-app.listen(3001, () => console.log(`listening on port 3000!`));
+app.listen(3001, () => console.log(`listening on port 3001!`));
