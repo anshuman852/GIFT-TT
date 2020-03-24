@@ -3,13 +3,23 @@ const express = require("express");
 const cheerio = require("cheerio");
 const cheerioTableparser = require("cheerio-tableparser");
 const app = express();
-app.get("/", async (req, res) => {
-  console.log("link " + req.query.link);
+app.get("/gift/tt", async (req, res) => {
+  let link =
+    req.query.link +
+    "&b=" +
+    req.query.b +
+    "&sem=" +
+    req.query.sem +
+    "&st=" +
+    req.query.st +
+    "&s=" +
+    req.query.s;
+  console.log(link);
+  console.log(req.body);
 
   axios
-    .get(req.query.link)
+    .get(link)
     .then(async resp => {
-      console.log(resp.request.res.responseUrl);
       $ = cheerio.load(resp.data);
       ttable = $("#tbl > tbody");
       cheerioTableparser($);
@@ -77,8 +87,8 @@ app.get("/", async (req, res) => {
           }
         }
       }
-      final = JSON.stringify(dayMap, null, 4);
-      res.send(final);
+      res.header("Content-Type", "application/json");
+      res.send(JSON.stringify(dayMap, null, 4));
     })
     .catch(function(error) {
       // handle error
