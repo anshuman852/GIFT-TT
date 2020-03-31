@@ -95,4 +95,30 @@ app.get("/gift/tt", async (req, res) => {
       res.send("not found");
     });
 });
+app.get("/gift/tt/list", async (req, res) => {
+  url = "https://timetable.gift.edu.in/";
+  axios
+    .get(url)
+    .then(async resp => {
+      $ = cheerio.load(resp.data);
+      ttable = $("body > table > tbody");
+      cheerioTableparser($);
+      data = $(ttable).parsetable();
+      let finaldata = [];
+      for (i = 1; i < data[0].length; i++) {
+        ok = cheerio.load(data[1][i]);
+        finaldata.push({
+          title: ok.text().replace("B.Tech", "BTECH"),
+          link: url + ok("a").attr("href")
+        });
+      }
+      finaldata = JSON.stringify(finaldata, null, 4);
+      res.header("Content-Type", "application/json");
+      res.send(finaldata);
+    })
+    .catch(function(error) {
+      res.status(404);
+      res.send();
+    });
+});
 app.listen(3001, () => console.log(`listening on port 3001!`));
