@@ -1,9 +1,11 @@
 const axios = require("axios").default;
 const express = require("express");
+const apicache= require("apicache")
 const cheerio = require("cheerio");
 const cheerioTableparser = require("cheerio-tableparser");
 const app = express();
-app.get("/gift/tt", async (req, res) => {
+let cache = apicache.middleware
+app.get("/gift/tt",cache('30 minutes'), async (req, res) => {
   let link =
     req.query.link +
     "&b=" +
@@ -95,7 +97,7 @@ app.get("/gift/tt", async (req, res) => {
       res.send("not found");
     });
 });
-app.get("/gift/tt/list", async (req, res) => {
+app.get("/gift/tt/list",cache('1 day'), async (req, res) => {
   url = "https://timetable.gift.edu.in/";
   axios
     .get(url)
