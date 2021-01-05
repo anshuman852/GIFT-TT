@@ -11,7 +11,7 @@
   "dependencies": {
     "@anshuman852/short": "git+https://github.com/anshuman852/short.git",
     "apicache": "^1.5.3",
-    "axios": "^0.19.2",
+    "axios": "^0.21.1",
     "cheerio": "^1.0.0-rc.3",
     "cheerio-tableparser": "^1.0.1",
     "express": "^4.17.1",
