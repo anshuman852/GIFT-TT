@@ -134,7 +134,8 @@ app.get("/gift/tt/list", cache("1 day"), async (req, res) => {
       res.send();
     });
 });
-app.listen(3001, () => console.log(`listening on port 3001!`));
+port= process.env.PORT || 3001
+app.listen(port, () => console.log(`listening on port 3001!`));
 
 function replaceAll(str, find, replace) {
   return str.replace(new RegExp(escapeRegExp(find), "g"), replace);
