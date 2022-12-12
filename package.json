@@ -15,7 +15,7 @@
     "cheerio": "^1.0.0-rc.3",
     "cheerio-tableparser": "^1.0.1",
     "dateformat": "^4.4.1",
-    "express": "^4.17.1",
+    "express": "^4.17.3",
     "node-cron": "^2.0.3"
   }
 }
